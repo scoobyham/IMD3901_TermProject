@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <title>Cave Prototype</title>
+      <meta name="description" content="Cave Prototype">
+      <script src="/js/aframe.min.js"></script>
+      <script src="/js/aframe-environment-component.min.js"></script>
+
+      <link rel="stylesheet" href="/css/user-gesture.css">
+      <script>
+        AFRAME.registerComponent('start-experience', {
+          init: function () {
+            console.log('scene loaded');
+            document.querySelector('#user-gesture-button').style.display='block';
+          }
+        });
+        
+        const startExperience = function() {
+          document.querySelector('#user-gesture-overlay').style.display='none';
+        }
+      </script>
+    </head>
+    <body>
+      <div id="user-gesture-overlay">
+        <div class="center">
+          <button id="user-gesture-button" onclick="startExperience();">enter experience</button>
+        </div>
+      </div>
+
+      <a-scene start-experience>
+        <a-assets>
+          <a-asset-item id="Torch" response-type="arraybuffer" src="/assets/torch.glb"></a-asset-item>
+
+        </a-assets>
+
+        <a-entity camera wasd-controls look-controls position="0 1.6 28">
+          <a-entity cursor="rayOrigin:mouse;" raycaster="far:20; interval:200; objects:.interactive"></a-entity>
+          <a-entity light="type:spot; intensity:1.4; castShadow:true; shadowBias:-0.0005; angle:40; penumbra:0.3;" position="0.5 -0.5 0" rotation="0 0 0"></a-entity>
+          <a-entity gltf-model="#Torch" position="1 -1.25 -1" rotation="0 180 0"></a-entity>
+        </a-entity>
+
+        <a-entity id="cave">
+          <a-entity class="tunnel"  geometry="primitive:cylinder; openEnded:true; height:15; radius:3;" material="side:double; color:grey;" position="0 1.55 22.5" rotation="-90 0 0" shadow="cast:false; receive:true;"></a-entity>
+          
+          <a-entity class="ground"  geometry="primitive:plane; width:30; height:45;" material="color:grey;" position="0 0.15 7" rotation="-90 0 0" shadow="cast:false; receive:true;"></a-entity>
+          <a-entity class="roof"    geometry="primitive:plane; width:30; height:30;" material="color:grey;" position="0 10 0"  rotation="90 0 0" shadow="cast:false; receive:true;"></a-entity>
+
+          <a-entity id="walls">
+            <a-entity class="wall"    geometry="primitive:plane; width:30; height:10;" material="color:grey;" position="15 5 0"  rotation="0 -90 0" shadow="cast:false; receive:true;"></a-entity>
+              <a-entity id="medicineSquare">
+                <a-entity class="button interactive" geometry="primitive:plane; width:5; height:5;" material="color:yellow;" position="14.95 5 0" rotation="0 -90 0" shadow="cast:false; receive:true;"
+                            animation__click="startEvents:click;" shadow></a-entity>
+              </a-entity>
+             <a-entity class="wall"    geometry="primitive:plane; width:30; height:10;" material="color:grey;" position="-15 5 0" rotation="0 90 0" shadow="cast:false; receive:true;"></a-entity>
+              <a-entity id="beaverSquare">
+                <a-entity class="button interactive" geometry="primitive:plane; width:5; height:5;" material="color:black;" position="-14.95 5 0" rotation="0 90 0" shadow="cast:false; receive:true;"
+                            animation__click="startEvents:click;" shadow></a-entity>
+              </a-entity> 
+             <a-entity class="wall"    geometry="primitive:plane; width:30; height:10;" material="color:grey;" position="0 5 15"  rotation="0 180 0" shadow="cast:false; receive:true;"></a-entity>
+              <a-entity id="fishingSquare">
+                <a-entity class="button interactive" geometry="primitive:plane; width:5; height:5;" material="color:red;" position="0 5 14.95" rotation="0 180 0" shadow="cast:false; receive:true;"
+                            animation__click="startEvents:click;" shadow></a-entity>
+              </a-entity> 
+            <a-entity class="wall"    geometry="primitive:plane; width:30; height:10;" material="color:grey;" position="0 5 -15" rotation="0 0 0" shadow="cast:false; receive:true;"></a-entity>
+              <a-entity id="namingSquare">
+                <a-entity class="button interactive" geometry="primitive:plane; width:5; height:5;" material="color:white;" position="0 5 -14.95" rotation="0 0 0" shadow="cast:false; receive:true;"
+                            animation__click="startEvents:click;" shadow></a-entity>
+              </a-entity>          
+            </a-entity>
+        </a-entity>
+        
+        <a-entity environment="preset:starry"></a-entity>
+      </a-scene>
+    </body>
+</html>
