@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>Beaver</title>
+    <meta name="description" content="Beaver">
+    <script src="/js/aframe.min.js"></script>
+    <script src="/js/aframe-environment-component.min.js"></script>
+  </head>
+
+  <body>
+    <a-scene>
+      <a-assets>
+        <a-asset-item id="beaver" response-type="arraybuffer" src="/assets/BeaverStory.glb"></a-asset-item>
+        <a-asset-item id="Torch" response-type="arraybuffer" src="/assets/torch.glb"></a-asset-item>
+      </a-assets>
+
+      <a-entity camera wasd-controls look-controls position="1.5 3 25">
+        <a-entity cursor="rayOrigin:mouse;" raycaster="far:20; interval:200; objects:.interactive"></a-entity>
+        <a-entity light="type:spot; intensity:1.4; castShadow:true; shadowBias:-0.0005; angle:40; penumbra:0.3;"
+          position="0.5 -0.5 0" rotation="0 0 0"></a-entity>
+        <a-entity gltf-model="#Torch" scale="0.05 0.05 0.05" position=".35 -.3 -.6" rotation="0 180 0"></a-entity>
+      </a-entity>
+
+      <a-entity id="environment">
+        <a-entity gltf-model="#beaver" position="0 2 0"></a-entity>
+      </a-entity>
+
+      <a-entity environment="preset:starry"></a-entity>
+    </a-scene>
+  </body>
+
+</html>
